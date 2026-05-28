@@ -8,10 +8,9 @@ import org.hibernate.cfg.Configuration;
 
 public class Main {
     public static void main(String[] args){
-        Alien a1 = new Alien();
-        a1.setId(102);
-        a1.setName("Kunle");
-        a1.setTech("fullstack");
+
+        AlienName name = new AlienName("Chris","Ayomide");
+        Alien a1 = new Alien(104,name,"data science");
 
 
         SessionFactory sessionFactory = new Configuration()
@@ -23,10 +22,13 @@ public class Main {
 
         Transaction transaction = session.beginTransaction();
 
-        Alien a2 = session.find(Alien.class,102);
-        session.remove(a2);
+//        Alien a2 = session.find(Alien.class,102);
+//        session.remove(a2);
 //        session.merge(a1);
 //        System.out.println(a2);
+
+        session.persist(a1);
+//        int deletedCount = session.createMutationQuery("DELETE from Alien a where a.id > 102").executeUpdate();
 
         transaction.commit();
         session.close();
